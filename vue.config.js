@@ -1,0 +1,10 @@
+module.exports = {
+  publicPath: "/aty/",
+  css: {
+    loaderOptions: {
+      css: {
+        sourceMap: process.env.NODE_ENV !== "production" ? true : false
+      }
+    }
+  }
+};
