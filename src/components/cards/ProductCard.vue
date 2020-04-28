@@ -38,12 +38,6 @@ export default {
   methods: {
     addMoreItem(item) {
       this.$store.dispatch("cart/addItemToCart", item);
-    },
-    substractItem(item) {
-      this.$store.dispatch("cart/subtractItemFromCart", item);
-    },
-    removeItem(item) {
-      this.$store.dispatch("cart/removeItemFromCart", item);
     }
   }
 };

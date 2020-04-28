@@ -32,3 +32,9 @@
     }
   }
 }
+.md-menu-content.md-select-menu{
+  z-index: 110;
+  .md-ripple > span {
+    position: unset;
+  }
+}

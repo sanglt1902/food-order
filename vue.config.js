@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "/aty/",
+  publicPath: "/food-order/",
   css: {
     loaderOptions: {
       css: {

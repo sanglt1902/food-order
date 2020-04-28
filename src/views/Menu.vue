@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <notifications></notifications>
     <parallax class="section page-header header-filter" :style="headerStyle">
       <div class="container">
         <div class="md-layout">
@@ -7,9 +8,7 @@
             class="md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
           >
             <h1 class="title">Điểm Tâm A Tý</h1>
-            <h4>
-              Rất Hân Hạnh Được Phục Vụ Quí Dị!
-            </h4>
+            <h4>Rất Hân Hạnh Được Phục Vụ Quí Dị!</h4>
             <br />
             <!-- <md-button
               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -17,7 +16,7 @@
               target="_blank"
             >
               <i class="fas fa-play"></i> Watch video
-            </md-button> -->
+            </md-button>-->
           </div>
         </div>
       </div>
@@ -39,7 +38,7 @@
             <div class="md-layout">
               <div
                 class="md-layout-item md-medium-size-33 md-small-size-100"
-                v-for="(item, x) in this.menu"
+                v-for="(item, x) in breakfastMenu"
                 :key="x"
               >
                 <product-card v-bind:data="item"></product-card>
@@ -68,7 +67,60 @@
         <div class="container">
           <div class="md-layout">
             <div class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto">
-              <h2 class="text-center title">Đôi nét về Quí Dị ạ</h2>
+              <h2 class="text-center title">Đơn Hàng Của Quí Dị</h2>
+              <h4 class="text-center description">
+                Cho tiểu nhị xin vài đặc điểm nhận dạng của Quí Dị đi để kêu mấy
+                thằng đệ ship liền ạ
+              </h4>
+              <md-table table-header-color="green">
+                <md-table-row>
+                  <md-table-head>Tên Món</md-table-head>
+                  <md-table-head>Đơn Giá</md-table-head>
+                  <md-table-head>Số Lượng</md-table-head>
+                </md-table-row>
+
+                <md-table-row v-for="(item, x) in cart" :key="x">
+                  <md-table-cell>{{ item.name }}</md-table-cell>
+                  <md-table-cell
+                    >{{ item.price.toLocaleString() }} đồng</md-table-cell
+                  >
+                  <md-table-cell>
+                    <md-button
+                      class="md-button md-success md-simple md-theme-default"
+                      @click="addMoreItem(item)"
+                    >
+                      <i class="fas fa-plus"></i>
+                    </md-button>
+                    <md-field class="has-info quantity">
+                      <label>{{ item.quantity }}</label>
+                    </md-field>
+                    <md-button
+                      class="md-button md-danger md-simple md-theme-default"
+                      @click="substractItem(item)"
+                    >
+                      <i class="fas fa-minus"></i>
+                    </md-button>
+                  </md-table-cell>
+                </md-table-row>
+                <md-table-row>
+                  <md-table-cell />
+                  <md-table-cell class="total-cash-title"
+                    >Tổng Cộng</md-table-cell
+                  >
+                  <md-table-cell class="total-cash"
+                    >{{ totalPrice.toLocaleString() }} đồng</md-table-cell
+                  >
+                </md-table-row>
+              </md-table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section section-contacts">
+        <div class="container">
+          <div class="md-layout">
+            <div class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto">
+              <h2 class="text-center title">Đôi Nét Về Quí Dị Ạ!</h2>
               <h4 class="text-center description">
                 Cho tiểu nhị xin vài đặc điểm nhận dạng của Quí Dị đi để kêu
                 ngựa ship liền ạ
@@ -84,24 +136,26 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Số Điện Thoại đi ạ</label>
-                      <md-input v-model="email" type="phone"></md-input>
+                      <md-input v-model="phone" type="phone"></md-input>
                     </md-field>
                   </div>
                 </div>
                 <md-field>
                   <label>Địa chỉ ở đâu ạ!</label>
-                  <md-input v-model="name" type="text"></md-input>
+                  <md-input v-model="address" type="text"></md-input>
                 </md-field>
                 <md-field maxlength="5">
-                  <label
-                    >Có dặn dò gì không ạ (thời gian giao, thêm ớt, thêm đường,
-                    thêm tứa lưa ạ...)</label
-                  >
-                  <md-textarea v-model="message"></md-textarea>
+                  <label>
+                    Có dặn dò gì không ạ (thời gian giao, thêm ớt, thêm đường,
+                    thêm tứa lưa ạ...)
+                  </label>
+                  <md-textarea v-model="note"></md-textarea>
                 </md-field>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
-                    <md-button class="md-success">Đặt Hàng</md-button>
+                    <md-button class="md-success" @click="confirmOrder"
+                      >Đặt Hàng</md-button
+                    >
                   </div>
                 </div>
               </form>
@@ -149,9 +203,10 @@ export default {
   },
   data() {
     return {
-      name: null,
-      email: null,
-      message: null,
+      name: "Sang",
+      phone: "0394448799",
+      note: "nhiều topping",
+      address: "số 5 hẻm 31 cmt8",
       menu: [
         {
           image: this.teamImg1,
@@ -196,6 +251,61 @@ export default {
       return {
         backgroundImage: `url(${this.header})`
       };
+    },
+    cart() {
+      return this.$store.getters.cart;
+    },
+    totalPrice() {
+      let total = 0;
+
+      for (const item of this.$store.getters.cart) {
+        total += item.totalPrice;
+      }
+
+      return total;
+    },
+    breakfastMenu() {
+      const breakfastMenu = this.menu.filter(item => {
+        if (item.isBreakfast) return item;
+      });
+      return breakfastMenu;
+    }
+  },
+  methods: {
+    addMoreItem(item) {
+      this.$store.dispatch("cart/addItemToCart", item);
+    },
+    substractItem(item) {
+      this.$store.dispatch("cart/subtractItemFromCart", item);
+    },
+    removeItem(item) {
+      this.$store.dispatch("cart/removeItemFromCart", item);
+    },
+    confirmOrder() {
+      const userInfo = {
+        name: this.name,
+        phone: this.phone,
+        address: this.address,
+        note: this.note
+      };
+      let userCart = this.cart.map(item => {
+        return {
+          id: item.id,
+          quantity: item.quantity,
+          price: item.price,
+          name: item.name
+        };
+      });
+      userCart.totalPrice = this.totalPrice;
+      this.$notify({
+        message: "Đặt Hàng Thành Công Rồi Nghe Quí Dị!",
+        type: "success",
+        horizontalAlign: "right",
+        verticalAlign: "bottom",
+        timeOut: 300000,
+        icon: "fa fa-gift"
+      });
+      console.log(JSON.stringify({ userInfo, userCart }));
     }
   }
 };
@@ -212,5 +322,32 @@ export default {
 
 .md-has-textarea + .md-layout {
   margin-top: 15px;
+}
+.notifications.vue-notifyjs {
+  .alert {
+    z-index: 100;
+  }
+  .list-move {
+    transition: transform 0.3s, opacity 0.4s;
+  }
+  .list-item {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .list-enter-active {
+    transition: transform 0.2s ease-in, opacity 0.4s ease-in;
+  }
+  .list-leave-active {
+    transition: transform 1s ease-out, opacity 0.4s ease-out;
+  }
+
+  .list-enter {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  .list-leave-to {
+    opacity: 0;
+    transform: scale(1.2, 0.7);
+  }
 }
 </style>

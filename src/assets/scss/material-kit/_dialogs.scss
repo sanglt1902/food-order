@@ -9,6 +9,9 @@
   display: table;
   transition: opacity .15s ease;
 }
+.modal-edit-page {
+  z-index: 100;
+}
 
 .modal-wrapper {
   display: table-cell;

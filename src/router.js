@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Index from "./views/Index.vue";
 import Landing from "./views/Landing.vue";
 import Menu from "./views/Menu.vue";
+import Mutation from "./views/Mutation.vue";
 import Login from "./views/Login.vue";
 import Profile from "./views/Profile.vue";
 import MainNavbar from "./layout/MainNavbar.vue";
@@ -30,15 +31,24 @@ export default new Router({
         footer: { backgroundColor: "black" }
       }
     },
-    // {
-    //   path: "/menu",
-    //   name: "Menu",
-    //   components: { default: Menu, header: MainNavbar, footer: MainFooter },
-    //   props: {
-    //     header: { colorOnScroll: 400 },
-    //     footer: { backgroundColor: "black" }
-    //   }
-    // },
+    {
+      path: "/menu",
+      name: "Menu",
+      components: { default: Index, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" }
+      }
+    },
+    {
+      path: "/mutation",
+      name: "Menu",
+      components: { default: Mutation, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" }
+      }
+    },
     {
       path: "/login",
       name: "login",

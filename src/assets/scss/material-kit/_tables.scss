@@ -25,8 +25,8 @@
 
 .md-table-head-label{
   font-size: $font-size-h5;
-  padding-left: 8px;
-  font-weight: 300;
+  font-weight: 500;
+
 }
 
 .md-table .md-table-row:hover .md-table-cell{
@@ -43,6 +43,7 @@
 }
 
 .md-table{
+  box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
   &[table-header-color="orange"] .md-table-head{
     color: $brand-warning !important;
   }
@@ -57,9 +58,25 @@
   }
   &[table-header-color="green"] .md-table-head{
     color: $brand-success !important;
+    text-align:center;
   }
 
   .md-table-row td{
     border-top-color: rgba(0,0,0,.06) !important;
+    text-align:center;
+  }
+  .quantity label{
+    text-align: center;
+    width: 100%;
+    color: black;
+  }
+  .total-cash-title {
+    font-weight: 500;
+    color: black;
+  }
+  .total-cash div{
+    text-align: center !important;
+    display: inline-block !important;
+
   }
 }
